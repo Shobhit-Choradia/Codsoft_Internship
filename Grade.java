@@ -2,11 +2,11 @@ import java.util.*;
 
 class Marks
 {
-    String name;
-    public HashMap<String, Integer> map = new HashMap<>();
-    Scanner sc = new Scanner(System.in);
+    String name;  // data member name
+    public HashMap<String, Integer> map = new HashMap<>(); // datamember hashmap
+    Scanner sc = new Scanner(System.in); // new scanner
 
-    public Marks(String studName)
+    public Marks(String studName) // 1 paramter constructor
     {
         this.name = studName;
         System.out.println("Enter the number of subjects do you have: ");
@@ -24,7 +24,7 @@ class Marks
         }
     }
 
-    int totMarks()
+    int totMarks() // method to find total marks
     {
         int totalMarks = 0;
         for (Map.Entry<String, Integer> mp : map.entrySet())
@@ -34,13 +34,13 @@ class Marks
         return totalMarks;
     }
 
-    int avg()
+    int avg()  // method to calculate average marks
     {
         int totalMarks = totMarks();
         return totalMarks / map.size();
     }
 
-    String grade()
+    String grade() // method to calculate grades
     {
         int marks = avg();
         if (marks > 90) return "A Grade";
@@ -50,7 +50,7 @@ class Marks
         return "Below passing";
     }
 
-    void display()
+    void display() // method to display data in hashmap
     {
         System.out.println();
         System.out.println("student name - " + name);
@@ -61,23 +61,25 @@ class Marks
         System.out.println();
     }
 
-    void detailsDisplay()
+    void detailsDisplay() // method to display returned values of totmarks, avg, grade and max and min marks
     {
         System.out.println();
         System.out.println("The total marks " + name + " scored is  - " + totMarks());
         System.out.println("The percentage score of " + name + " is - " + avg());
         System.out.println("The grade score of " + name + " is      - " + grade());
+        this.maxMinMarks();
         System.out.println();
     }
 
-    void subjectMarks(){
+    void subjectMarks()  // method to find marks of a subject
+    {
         System.out.println("Enter the subject name: ");
         String subName = sc.next();
         System.out.println("The marks scored in " + subName + " is " +  map.get(subName));
         System.out.println();
     }
 
-    void update()
+    void update()  // method to update marks of a subject
     {
         System.out.println("Enter the subject name: ");
         String subjectName = sc.next();
@@ -106,7 +108,7 @@ class Marks
         }
     }
 
-    void delete()
+    void delete()  // method to delete a key-value pair from hashmap
     {
         System.out.println("Enter the subject name: ");
         String sn = sc.next();
@@ -122,7 +124,7 @@ class Marks
         System.out.println();
     }
 
-    void addSubject()
+    void addSubject()  // method to add key-value pair in hashmap
     {
         System.out.println("Enter the subject name: ");
         String sub = sc.next();
@@ -133,7 +135,7 @@ class Marks
         map.put(sub, ms);
     }
 
-    void addSubject(String sub)
+    void addSubject(String sub) // method to add key-value pair in hashmap if we already know data of key
     {
         System.out.println("Enter the marks: ");
         int ms = sc.nextInt();
@@ -141,7 +143,7 @@ class Marks
         map.put(sub, ms);
     }
 
-    int errorMarkCheck(int score)
+    int errorMarkCheck(int score)  // method to check for marks input
     {
         while (score < 0 || score > 100)
         {
@@ -151,23 +153,42 @@ class Marks
         return score;
     }
 
-    String errorSubjectCheck(String subject)
+    String errorSubjectCheck(String subject) // method to check for subject input
     {
         while(map.containsKey(subject))
         {
             System.out.println("Input error \n please re-enter the subject");
             subject = sc.next();
         }
-    return subject;
+        return subject;
     }
+
+    void maxMinMarks() // method to find maximum and minimum marks
+    {
+        int max = 0;
+        int min = 100;
+        for (Map.Entry<String, Integer> mp : map.entrySet())
+        {
+            if(mp.getValue() > max)
+            {
+                max = mp.getValue();
+            }
+            if(mp.getValue() < min)
+            {
+                min = mp.getValue();
+            }
+        }
+        System.out.println("The maximum marks scored are - " + max);
+        System.out.println("The minimum marks scored are - " + min);
+    }
+
 }
 
-public class Grade
+public class Grade  // new class Grade
 {
-    public static void main(String[] args)
+    public static void main(String[] args)  // main method
     {
         Scanner sc = new Scanner(System.in);
-        // student name
         System.out.println("Enter the your name: ");
         String name = sc.next();
         Marks student1 = new Marks(name);
@@ -175,17 +196,16 @@ public class Grade
         student1.detailsDisplay();
         int choice = 0;
 
-        while (choice != -1)
+        while (choice != -1)  // start of a loop for a menu driven system
         {
-            System.out.println("""
-                    If you want to see the marks of one particular subject then type 1\s
-                    If you want to update the marks of particular subject then type  2\s
-                    If you want to delete details of particular subject then type    3\s
-                    If you want to add detail of new subject then type               4\s
-                    If you want to see details                                       5\s
-                    If you want to exit then type                                   -1""");
+            System.out.println("If you want to see the marks of one particular subject then type 1 " +
+                    "\nIf you want to update the marks of particular subject then type  2 " +
+                    "\nIf you want to delete details of particular subject then type    3 " +
+                    "\nIf you want to add detail of new subject then type               4 " +
+                    "\nIf you want to see details                                       5 " +
+                    "\nIf you want to exit then type                                   -1");
             choice = sc.nextInt();
-            switch (choice)
+            switch (choice)  // switch case to run input for above menu driven system
             {
                 case 1:
                     student1.subjectMarks();
