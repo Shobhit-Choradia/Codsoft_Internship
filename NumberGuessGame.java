@@ -1,7 +1,8 @@
 import java.util.Random;
 import java.util.Scanner;
 
-public class NumberGuessGame {
+public class NumberGuessGame //new class NumberGuessGame
+{  
     final int secretNumber;
     final int minRange;
     final int maxRange;
@@ -10,7 +11,8 @@ public class NumberGuessGame {
     private int numGuesses;
     private boolean gameOver;
 
-    public NumberGuessGame(int minRange, int maxRange) {
+    public NumberGuessGame(int minRange, int maxRange) //2 parameter constructor 
+    {
         this.minRange = minRange;
         this.maxRange = maxRange;
         this.maxGuesses = calculateMaxGuesses();
@@ -20,12 +22,14 @@ public class NumberGuessGame {
         this.gameOver = false;
     }
 
-    private int generateSecretNumber() {
+    private int generateSecretNumber() // method to genereate a random number
+    {
         Random random = new Random();
         return random.nextInt(maxRange - minRange + 1) + minRange;
     }
 
-    private int calculateMaxGuesses() {
+    private int calculateMaxGuesses() //method to calculate maximum guesses possible for that range
+    {
         int range = maxRange - minRange + 1;
         if (range > 10000) {
             return 20;
@@ -36,36 +40,47 @@ public class NumberGuessGame {
         }
     }
 
-    public void makeGuess(int guess) {
-        if (!gameOver) {
+    public void makeGuess(int guess) //method to check if guess maken is right
+    {
+        if (!gameOver)
+        {
             currentGuess = guess;
             numGuesses++;
 
-            if (guess == secretNumber) {
+            if (guess == secretNumber)
+            {
                 System.out.println("\n\nCONGRATULATIONS! You have guessed the right number.");
                 System.out.println("You took " + numGuesses + " guesses to win.");
                 gameOver = true;
-            } else if (guess < secretNumber) {
+            }
+            else if (guess < secretNumber)
+            {
                 System.out.println("\n" + guess + " is lower than the number.");
-            } else {
+            }
+            else
+            {
                 System.out.println("\n" + guess + " is higher than the number.");
             }
-
-            if (numGuesses >= maxGuesses) {
+            if (numGuesses >= maxGuesses)
+            {
                 System.out.println("Sorry, you couldn't guess the number in " + maxGuesses + " guesses. You lose.");
                 System.out.println("The number was " + secretNumber + ".");
                 gameOver = true;
             }
-        } else {
+        }
+        else
+        {
             System.out.println("The game is already over. Please start a new game.");
         }
     }
 
-    public boolean isGameOver() {
+    public boolean isGameOver() //method to say game over
+    {
         return gameOver;
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) //main method of game
+    {
         Scanner scanner = new Scanner(System.in);
         System.out.println("HELLO");
         System.out.println("WELCOME TO THE NUMBER GUESS MINI GAME");
@@ -78,7 +93,8 @@ public class NumberGuessGame {
 
         NumberGuessGame game = new NumberGuessGame(minRange, maxRange);
 
-        while (!game.isGameOver()) {
+        while (!game.isGameOver())
+        {
             System.out.print("Your guess: ");
             int guess = scanner.nextInt();
             game.makeGuess(guess);
@@ -87,10 +103,13 @@ public class NumberGuessGame {
         System.out.print("\n\nWANNA PLAY AGAIN? (yes/no): ");
         String playAgain = scanner.next();
 
-        if (playAgain.equalsIgnoreCase("yes")) {
+        if (playAgain.equalsIgnoreCase("yes"))
+        {
             System.out.println("Restarting game...");
             main(null); // Restart the game
-        } else {
+        }
+        else
+        {
             System.out.println("Exiting game. Goodbye!");
         }
 
